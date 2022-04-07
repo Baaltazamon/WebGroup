@@ -75,7 +75,9 @@ body {
 .main {
     background: #fff;
 }
-
+.justifyP {
+    text-align: justify;
+}
 section,
 .section {
     position: relative;

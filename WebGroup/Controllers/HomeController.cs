@@ -22,6 +22,15 @@ namespace WebGroup.Controllers
         {
             return View();
         }
+        public IActionResult AboutCollege()
+        {
+            return View();
+        }
+
+        public IActionResult News()
+        {
+            return View();
+        }
         public IActionResult About()
         {
             return View();
