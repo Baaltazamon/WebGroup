@@ -26,7 +26,22 @@ namespace WebGroup.Controllers
         {
             return View();
         }
-
+        public IActionResult Team()
+        {
+            return View();
+        }
+        public IActionResult Contact()
+        {
+            return View();
+        }
+        public IActionResult Achievement()
+        {
+            return View();
+        }
+        public IActionResult Project()
+        {
+            return View();
+        }
         public IActionResult News()
         {
             return View();
