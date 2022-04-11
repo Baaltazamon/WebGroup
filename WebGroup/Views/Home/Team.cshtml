@@ -1,4 +1,4 @@
-﻿
+﻿@model Tuple<List<Member>, List<StatusStudent>>
 @{
     ViewData["Title"] = "Team";
 }
@@ -36,102 +36,27 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-4">
-                <!-- Single Team -->
-                <div class="single-team">
-                    <!-- Team Photo -->
-                    <div class="team-photo">
-                        <a href="#"><img src="~/assets/img/team/thumb_1.jpg" alt=""></a>
-                    </div>
-                    <!-- Team Content -->
-                    <div class="team-content p-3">
-                        <a href="#">
-                            <h3 class="mb-2">Захар Бычко</h3>
-                        </a>
-                        <h5 class="text-uppercase">Студент</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <!-- Single Team -->
-                <div class="single-team">
-                    <!-- Team Photo -->
-                    <div class="team-photo">
-                        <a href="#"><img src="~/assets/img/team/thumb_2.jpg" alt=""></a>
-                    </div>
-                    <!-- Team Content -->
-                    <div class="team-content p-3">
-                        <a href="#">
-                            <h3 class="mb-2">Никита Головин</h3>
-                        </a>
-                        <h5 class="text-uppercase">Лучший Web-разработчик</h5>
+            @foreach (var item in Model.Item1)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <!-- Single Team -->
+                    <div class="single-team">
+                        <!-- Team Photo -->
+                        <div class="team-photo">
+                            <a href="#"><img src="~/assets/img/team/@item.Photo" alt=""></a>
+                        </div>
+                        <!-- Team Content -->
+                        <div class="team-content p-3">
+                            <a href="#">
+                                <h3 class="mb-2">@item.FirstName @item.LastName</h3>
+                            </a>
+                            <h5 class="text-uppercase">@item.StatusNavigation.Name</h5>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <!-- Single Team -->
-                <div class="single-team">
-                    <!-- Team Photo -->
-                    <div class="team-photo">
-                        <a href="#"><img src="~/assets/img/team/thumb_3.jpg" alt=""></a>
-                    </div>
-                    <!-- Team Content -->
-                    <div class="team-content p-3">
-                        <a href="#">
-                            <h3 class="mb-2">Дмитрий Чигринский</h3>
-                        </a>
-                        <h5 class="text-uppercase">Отличник</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <!-- Single Team -->
-                <div class="single-team">
-                    <!-- Team Photo -->
-                    <div class="team-photo">
-                        <a href="#"><img src="~/assets/img/team/thumb_4.jpg" alt=""></a>
-                    </div>
-                    <!-- Team Content -->
-                    <div class="team-content p-3">
-                        <a href="#">
-                            <h3 class="mb-2">Артём Баскаков</h3>
-                        </a>
-                        <h5 class="text-uppercase">Главная котлетка</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <!-- Single Team -->
-                <div class="single-team">
-                    <!-- Team Photo -->
-                    <div class="team-photo">
-                        <a href="#"><img src="~/assets/img/team/thumb_5.jpg" alt=""></a>
-                    </div>
-                    <!-- Team Content -->
-                    <div class="team-content p-3">
-                        <a href="#">
-                            <h3 class="mb-2">Карина Павлова</h3>
-                        </a>
-                        <h5 class="text-uppercase">Дочь маминой подруги</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <!-- Single Team -->
-                <div class="single-team">
-                    <!-- Team Photo -->
-                    <div class="team-photo">
-                        <a href="#"><img src="~/assets/img/team/thumb_6.jpg" alt=""></a>
-                    </div>
-                    <!-- Team Content -->
-                    <div class="team-content p-3">
-                        <a href="#">
-                            <h3 class="mb-2">Максим Лавин</h3>
-                        </a>
-                        <h5 class="text-uppercase">Студент</h5>
-                    </div>
-                </div>
-            </div>
+            }
+            
+
         </div>
     </div>
     <!-- Shape Bottom -->

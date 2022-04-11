@@ -1,4 +1,4 @@
-﻿
+﻿@model Tuple<List<News>, List<Member>>
 @{
     ViewData["Title"] = "News";
 }
@@ -24,117 +24,33 @@
         <section id="portfolio" class="portfolio-area style-two bg-gray overflow-hidden ptb_100">
             
             <div class="row justify-content-center">
-                <div class="col-12 col-sm-6 col-lg-4 p-0">
+               @foreach (var item in Model.Item1)
+               {
+                   <div class="col-12 col-sm-6 col-lg-4 p-0">
 
-                    <!-- Single Case Studies -->
-                    <div class="single-case-studies mb-0">
-                        <!-- Case Studies Thumb -->
-                        <a href="#">
-                            <img src="~/assets/img/news/blog-1.jpg" alt="">
-                        </a>
-                        <!-- Case Studies Overlay -->
-                        <a href="#" class="case-studies-overlay">
-                            <!-- Overlay Text -->
-                            <span class="overlay-text text-center p-3">
-                                <h3 class="text-white mb-3">В Москве пройдет конференция по внедрению цифровых технологий в строительстве</h3>
-                                31.03.2022
-                                <p class="text-white">
-                                    «В рамках деловой программы состоятся сессии, посвященные цифровизации строительной отрасли, обсуждению новых решений и разработок, а также кадрового вопроса и требований к работникам в связи с внедрением технологий информационного моделирования», – сказал Сергей Лёвкин.
-                                </p>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4 p-0">
-                    <!-- Single Case Studies -->
-                    <div class="single-case-studies mb-0">
-                        <!-- Case Studies Thumb -->
-                        <a href="#">
-                            <img src="~/assets/img/news/blog-2.jpg" alt="">
-                        </a>
-                        <!-- Case Studies Overlay -->
-                        <a href="#" class="case-studies-overlay">
-                            <!-- Overlay Text -->
-                            <span class="overlay-text text-center p-3">
-                                <h3 class="text-white mb-3">УНИКАЛЬНЫЕ ПРОЕКТЫ МУЗЕЯ ПОБЕДЫ</h3>
-                                <h5>31.03.2022</h5>
-                                <p class="text-white">Яркие эмоции, необычные задания и атмосфера полного погружения – вот что помогло нашим студентам открыть для себя историю Великой Отечественной войны.</p>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4 p-0">
-                    <!-- Single Case Studies -->
-                    <div class="single-case-studies mb-0">
-                        <!-- Case Studies Thumb -->
-                        <a href="#">
-                            <img src="~/assets/img/news/blog-3.jpg" alt="">
-                        </a>
-                        <!-- Case Studies Overlay -->
-                        <a href="#" class="case-studies-overlay">
-                            <!-- Overlay Text -->
-                            <span class="overlay-text text-center p-3">
-                                <h3 class="text-white mb-3">Добровольное донорство крови</h3>
-                                <h5>31.03.2022</h5>
-                                <p class="text-white">29 марта 2022 года обучающиеся ГБПОУ КСТ стали участниками ежемесячной донорской акции на базе 52-ой клинической больницы, организованной совместно с Союзом машиностроителей России в рамках Государственной программы «Служба крови».</p>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4 p-0">
-                    <!-- Single Case Studies -->
-                    <div class="single-case-studies mb-0">
-                        <!-- Case Studies Thumb -->
-                        <a href="#">
-                            <img src="~/assets/img/news/blog-4.jpg" alt="">
-                        </a>
-                        <!-- Case Studies Overlay -->
-                        <a href="#" class="case-studies-overlay">
-                            <!-- Overlay Text -->
-                            <span class="overlay-text text-center p-3">
-                                <h3 class="text-white mb-3">Соревнования «Первый элемент» - достойный результат нашей команды</h3>
-                                <h5>30.03.2022</h5>
-                                <p class="text-white">6-27 марта команда обучающихся ГБПОУ КСТ приняла участие в Московском, отборочном этапе инженерного конкурса юношеских команд «Первый элемент». «Первый элемент» - это гонки радиоуправляемых автомобилей с двигателями на водородном топливном элементе, которые прошли в 55-м павильоне ВДНХ.</p>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4 p-0">
-                    <!-- Single Case Studies -->
-                    <div class="single-case-studies mb-0">
-                        <!-- Case Studies Thumb -->
-                        <a href="#">
-                            <img src="~/assets/img/news/blog-5.jpg" alt="">
-                        </a>
-                        <!-- Case Studies Overlay -->
-                        <a href="#" class="case-studies-overlay">
-                            <!-- Overlay Text -->
-                            <span class="overlay-text text-center p-3">
-                                <h3 class="text-white mb-3">ЭКСКУРСИЯ ПО ОБЪЕКТАМ ФИЛИАЛА № 4 ПАО «МОЭК»</h3>
-                                <h5>30.03.2022</h5>
-                                <p class="text-white">25 марта 2022 года обучающиеся ГБПОУ КСТ посетили с экскурсией объекты филиала №4 ПАО "МОЭК" В ходе экскурсии сотрудники филиала №4 ПАО "МОЭК" рассказа</p>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4 p-0">
-                    <!-- Single Case Studies -->
-                    <div class="single-case-studies mb-0">
-                        <!-- Case Studies Thumb -->
-                        <a href="#">
-                            <img src="~/assets/img/news/blog-6.jpg" alt="">
-                        </a>
-                        <!-- Case Studies Overlay -->
-                        <a href="#" class="case-studies-overlay">
-                            <!-- Overlay Text -->
-                            <span class="overlay-text text-center p-3">
-                                <h3 class="text-white mb-3">Первенство округа по стрельбе</h3>
-                                <h5>28.03.2022</h5>
-                                <p class="text-white">11 марта Обучающиеся УК № 1 «Лосиноостровский» участие в первенстве округа по стрельбе из пневматического оружия</p>
-                            </span>
-                        </a>
-                    </div>
-                </div>
+                       <!-- Single Case Studies -->
+                       <div class="single-case-studies mb-0">
+                           <!-- Case Studies Thumb -->
+                           <a href="#">
+                               <img src="~/assets/img/news/@item.Photo" alt="">
+                           </a>
+                           <!-- Case Studies Overlay -->
+                           <a href="#" class="case-studies-overlay">
+                               <!-- Overlay Text -->
+                               <span class="overlay-text text-center p-3">
+                                   <h3 class="text-white mb-3">@item.Title</h3>
+                                   @item.DatePublication.ToShortDateString()
+                               <p class="text-white">
+                                   @item.AuthorNavigation.LastName @item.AuthorNavigation.FirstName
+                               </p>
+                                   <p class="text-white">
+                                   @item.Text.Substring(0,100)
+                                       </p>
+                               </span>
+                           </a>
+                       </div>
+                   </div>
+               }
 
             </div>
             <div class="row justify-content-center">

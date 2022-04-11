@@ -12,7 +12,7 @@ namespace WebGroup.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        Models.GolovinContext db = new GolovinContext();
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -28,7 +28,10 @@ namespace WebGroup.Controllers
         }
         public IActionResult Team()
         {
-            return View();
+            List<Member> mem = db.Members.Where(c => c.Status != 9).ToList();
+            List<StatusStudent> lstatus = db.StatusStudents.ToList();
+             
+            return View(Tuple.Create(mem, lstatus));
         }
         public IActionResult Contact()
         {
@@ -44,7 +47,10 @@ namespace WebGroup.Controllers
         }
         public IActionResult News()
         {
-            return View();
+            List<News> lnews = db.News.ToList();
+            List<Member> lmem = db.Members.ToList();
+
+            return View(Tuple.Create(lnews, lmem));
         }
         public IActionResult About()
         {
