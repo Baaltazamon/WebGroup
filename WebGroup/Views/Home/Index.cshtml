@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Tuple<List<Feedback>, List<StatusStudent>, List<AuthorFeedback>, List<Project>, List<Member>>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -137,35 +138,38 @@
                             <div class="profile-inner">
                                 <!-- Profile Circle -->
                                 <div class="profile-circle circle-lg">
-                                    <span class="profile-icon icon-1">
-                                        <img class="icon-1-img" src="~/assets/img/content/profile-icons/profile_icon_1.svg" />
-                                    </span>
-                                    <span class="profile-icon icon-2">
-                                        <img class="icon-2-img" src="~/assets/img/content/profile-icons/profile_icon_2.svg" />
-                                    </span>
-                                    <span class="profile-icon icon-3">
-                                        <img class="icon-3-img" src="~/assets/img/content/profile-icons/profile_icon_1.svg" />
-                                    </span>
+                                    @for (int i = 0; i < Model.Item5.Where(c => c.Status == 7).ToList().Count; i++)
+                                    {
+                                        <span class="profile-icon icon-@(i+1)">
+                                            <img class="icon-@(i+1)-img circle" src="~/assets/img/team/@Model.Item5.Where(c => c.Status == 7).ToList()[i].Photo" />
+                                        </span>
+                                    }
+                                    
+
+
                                 </div>
 
                                 <!-- Profile Circle -->
                                 <div class="profile-circle circle-md">
-                                    <span class="profile-icon icon-5">
-                                        <img class="icon-5-img" src="~/assets/img/content/profile-icons/profile_icon_3.svg" />
-                                    </span>
-                                    <span class="profile-icon icon-6">
-                                        <img class="icon-6-img" src="~/assets/img/content/profile-icons/profile_icon_3.svg" />
-                                    </span>
+
+                                    @for (int i = 0; i < Model.Item5.Where(c => c.Status == 4 || c.Status == 5 || c.Status == 6).ToList().Count; i++)
+                                    {
+                                        
+                                        <span class="profile-icon icon-@(i+5)">
+                                            <img class="icon-@(i+5)-img circle" src="~/assets/img/team/@Model.Item5.Where(c => c.Status == 4 || c.Status == 5 || c.Status == 6).ToList()[i].Photo" />
+                                        </span>
+                                    }
+
                                 </div>
 
                                 <!-- Profile Circle -->
                                 <div class="profile-circle circle-sm">
-                                    <span class="profile-icon icon-8">
-                                        <img class="icon-8-img" src="~/assets/img/content/profile-icons/Jenya.png"/>
-                                    </span>
-                                    <span class="profile-icon icon-9">
-                                        <img class="icon-9-img" src="~/assets/img/content/profile-icons/Islam.png"/>
-                                    </span>
+                                    @for (int i = 0; i < Model.Item5.Where(c => c.Status == 2 || c.Status == 3).ToList().Count; i++)
+                                    {
+                                        <span class="profile-icon icon-@(i+8)">
+                                            <img class="icon-@(i+8)-img circle" src="~/assets/img/team/@Model.Item5.Where(c=> c.Status == 2 || c.Status == 3).ToList()[i].Photo" />
+                                        </span>
+                                    }
                                 </div>
                             </div>
                             <img class="folder-img" src="~/assets/img/content/folders.png" />
@@ -188,8 +192,17 @@
                                         <span class="color-2"><i class="fas fa-angle-double-right"></i></span>
                                     </div>
                                     <div class="content-text media-body">
-                                        <span><b>Староста &amp; Зам. старосты</b><br>Староста — Амамбаев Ислам Аджиниязович
-                                            <br />Зам. старосты — Ламбатов Евгений Евгеньевич</span>
+                                        <span>
+                                            <b>Староста &amp; Зам. старосты</b><br>
+                                            @foreach (var item in Model.Item5.Where(c=> c.Status == 2 || c.Status == 3).ToList())
+                                            {
+                                                 
+                                                <p>
+                                                    <b>@item.StatusNavigation.Name</b> — @item.LastName @item.FirstName<br />
+                                                </p>
+                                                
+                                            }
+                                        </span>
                                     </div>
                                 </li>
                                 <!-- Single Content List -->
@@ -198,8 +211,17 @@
                                         <span class="color-2"><i class="fas fa-angle-double-right"></i></span>
                                     </div>
                                     <div class="content-text media-body">
-                                        <span><b>Прочий актив</b><br>Физорг — Шилов Илья Денисович
-                                            <br />Секретарь — Телятникова Екатерина Андреевна</span>
+                                        <span>
+                                            <b>Прочий актив</b><br>
+                                            @foreach (var item in Model.Item5.Where(c => c.Status == 4 || c.Status == 5 || c.Status == 6).ToList())
+                                            {
+
+                                                <p>
+                                                    <b>@item.StatusNavigation.Name</b> — @item.LastName @item.FirstName<br />
+                                                </p>
+
+                                            }
+                                        </span>
                                     </div>
                                 </li>
                                 <!-- Single Content List -->
@@ -208,9 +230,17 @@
                                         <span class="color-2"><i class="fas fa-angle-double-right"></i></span>
                                     </div>
                                     <div class="content-text media-body">
-                                        <span><b>Отличники</b><br>Перфильевский Данила Анатольевич
-                                            <br />Хлебин Юрий Олегович
-                                            <br />Чигринский Дмитрий Васильевич</span>
+                                        <span>
+                                            <b>Отличники</b><br>
+                                            @foreach (var item in Model.Item5.Where(c => c.Status == 7).ToList())
+                                            {
+
+                                                <p>
+                                                    @item.LastName @item.FirstName<br />
+                                                </p>
+
+                                            }
+                                        </span>
                                     </div>
                                 </li>
                             </ul>
@@ -310,156 +340,125 @@
         </section>
         <!-- ***** Service Area End ***** -->
         <!-- ***** Portfolio Area Start ***** -->
-        <section id="portfolio" class="portfolio-area overflow-hidden ptb_100">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-10 col-lg-7">
-                        <!-- Section Heading -->
-                        <div class="section-heading text-center">
-                            <h1>Наши работы</h1>
-                            <p class="d-none d-sm-block mt-4">Наши курсовые проекты и прочее</p>
-                            <p class="d-block d-sm-none mt-4">Список проектов</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center text-center">
-                    <div class="col-12">
-                        <!-- Portfolio Menu -->
-                        <div class="portfolio-menu btn-group btn-group-toggle flex-wrap justify-content-center text-center mb-4 mb-md-5" data-toggle="buttons">
-                            <label class="btn active d-table text-uppercase p-2">
-                                <input type="radio" value="all" checked class="portfolio-btn">
-                                <span>Все</span>
-                            </label>
-                            <label class="btn d-table text-uppercase p-2">
-                                <input type="radio" value="curs" class="portfolio-btn">
-                                <span>Курсовые</span>
-                            </label>
-                            <label class="btn d-table text-uppercase p-2">
-                                <input type="radio" value="dipl" class="portfolio-btn">
-                                <span>Дипломные</span>
-                            </label>
-                            <label class="btn d-table text-uppercase p-2">
-                                <input type="radio" value="other" class="portfolio-btn">
-                                <span>Прочее</span>
-                            </label>
-                            
-                        </div>
-                    </div>
-                </div>
-                <!-- Portfolio Items -->
-                <div class="row items portfolio-items">
-                    <div class="col-12 col-sm-6 col-lg-4 portfolio-item" data-groups='["curs"]'>
-                        <!-- Single Case Studies -->
-                        <div class="single-case-studies">
-                            <!-- Case Studies Thumb -->
-                            <a href="#">
-                                <img src="~/assets/img/case_studies/case_studies_1/thumb_2.jpg" alt="">
-                            </a>
-                            <!-- Case Studies Overlay -->
-                            <a href="#" class="case-studies-overlay">
-                                <!-- Overlay Text -->
-                                <span class="overlay-text text-center p-3">
-                                    <h3 class="text-white mb-3">Отдел кадров</h3>
-                                    <h5 class="text-white mb-3">Шилов Илья</h5>
-                                    <p class="text-white">Проектирование, моделирование и разработка информационной системы по учету сотрудников образовательной организации</p>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-lg-4 portfolio-item" data-groups='["other"]'>
-                        <!-- Single Case Studies -->
-                        <div class="single-case-studies">
-                            <!-- Case Studies Thumb -->
-                            <a href="#">
-                                <img src="~/assets/img/case_studies/case_studies_1/thumb_3.jpg" alt="">
-                            </a>
-                            <!-- Case Studies Overlay -->
-                            <a href="#" class="case-studies-overlay">
-                                <!-- Overlay Text -->
-                                <span class="overlay-text text-center p-3">
-                                    <h3 class="text-white mb-3">Отдел кадров ТЦ</h3>
-                                    <h5 class="text-white mb-3">Шамин Андрей</h5>
-                                    <p class="text-white">Проектирование, моделирование и разработка информационной системы по учету сотрудников торгового предприятия</p>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-lg-4 portfolio-item" data-groups='["curs"]'>
-                        <!-- Single Case Studies -->
-                        <div class="single-case-studies">
-                            <!-- Case Studies Thumb -->
-                            <a href="#">
-                                <img src="~/assets/img/case_studies/case_studies_1/thumb_1.jpg" alt="">
-                            </a>
-                            <!-- Case Studies Overlay -->
-                            <a href="#" class="case-studies-overlay">
-                                <!-- Overlay Text -->
-                                <span class="overlay-text text-center p-3">
-                                    <h3 class="text-white mb-3">Отдел вакансий</h3>
-                                    <h5 class="text-white mb-3">Маркус Игорь</h5>
-                                    <p class="text-white">Моделирование и разработка информационной системы учета вакансий отдела</p>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-lg-4 portfolio-item" data-groups='["curs"]'>
-                        <!-- Single Case Studies -->
-                        <div class="single-case-studies">
-                            <!-- Case Studies Thumb -->
-                            <a href="#">
-                                <img src="~/assets/img/case_studies/case_studies_1/thumb_4.jpg" alt="">
-                            </a>
-                            <!-- Case Studies Overlay -->
-                            <a href="#" class="case-studies-overlay">
-                                <!-- Overlay Text -->
-                                <span class="overlay-text text-center p-3">
-                                    <h3 class="text-white mb-3">Пропуски занятий</h3>
-                                    <h5 class="text-white mb-3">Перфилевский Данила</h5>
-                                    <p class="text-white">Проектирование, моделирование и разработка подсистемы по учету посещаемости занятий студентами</p>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-lg-4 portfolio-item" data-groups='["curs"]'>
-                        <!-- Single Case Studies -->
-                        <div class="single-case-studies">
-                            <!-- Case Studies Thumb -->
-                            <a href="#">
-                                <img src="~/assets/img/case_studies/case_studies_1/thumb_5.jpg" alt="">
-                            </a>
-                            <!-- Case Studies Overlay -->
-                            <a href="#" class="case-studies-overlay">
-                                <!-- Overlay Text -->
-                                <span class="overlay-text text-center p-3">
-                                    <h3 class="text-white mb-3">Психологическое тестирование</h3>
-                                    <p class="text-white">Проектирование, моделирование и разработка подсистемы по учету результатов тестирования респондентов</p>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-lg-4 portfolio-item" data-groups='["dipl","curs","other"]'>
-                        <!-- Single Case Studies -->
-                        <div class="single-case-studies">
-                            <!-- Case Studies Thumb -->
-                            <a href="#">
-                                <img src="~/assets/img/case_studies/case_studies_1/thumb_6.jpg" alt="">
-                            </a>
-                            <!-- Case Studies Overlay -->
-                            <a href="#" class="case-studies-overlay">
-                                <!-- Overlay Text -->
-                                <span class="overlay-text text-center p-3">
-                                    <h3 class="text-white mb-3">Склад по ремонту</h3>
-                                    <p class="text-white">Проектирование, моделирование и разработка подсистемы по учету склада по ремонту</p>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <a asp-action="Project" class="btn btn-bordered mt-4">Узнать больше</a>
+<section id="portfolio" class="portfolio-area overflow-hidden ptb_100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-7">
+                <!-- Section Heading -->
+                <div class="section-heading text-center">
+                    <h1>Наши работы</h1>
+                    <p class="d-none d-sm-block mt-4">Наши курсовые проекты и прочее</p>
+                    <p class="d-block d-sm-none mt-4">Список проектов</p>
                 </div>
             </div>
-        </section>
+        </div>
+        <div class="row justify-content-center text-center">
+            <div class="col-12">
+                <!-- Portfolio Menu -->
+                <div class="portfolio-menu btn-group btn-group-toggle flex-wrap justify-content-center text-center mb-4 mb-md-5" data-toggle="buttons">
+                    <label class="btn active d-table text-uppercase p-2">
+                        <input type="radio" value="all" checked class="portfolio-btn">
+                        <span>Все</span>
+                    </label>
+                    <label class="btn d-table text-uppercase p-2">
+                        <input type="radio" value="1" class="portfolio-btn">
+                        <span>Курсовые</span>
+                    </label>
+                    <label class="btn d-table text-uppercase p-2">
+                        <input type="radio" value="2" class="portfolio-btn">
+                        <span>Дипломные</span>
+                    </label>
+                    <label class="btn d-table text-uppercase p-2">
+                        <input type="radio" value="3" class="portfolio-btn">
+                        <span>Прочее</span>
+                    </label>
+                   
+                    
+                            
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio Items -->
+        <div class="row items portfolio-items">
+            @foreach (var item in Model.Item4.GetRange(0,6))
+            {
+                <div class="col-12 col-sm-6 col-lg-4 portfolio-item" data-groups='["@item.Type"]'>
+                    <!-- Single Case Studies -->
+                    <div class="single-case-studies">
+                        <!-- Case Studies Thumb -->
+                        <a href="#">
+                            <img src="~/assets/img/case_studies/case_studies_1/@item.Photo" alt="">
+                        </a>
+                        <!-- Case Studies Overlay -->
+                        <a href="#" class="case-studies-overlay">
+                            <!-- Overlay Text -->
+                            <span class="overlay-text text-center p-3">
+                                <h3 class="text-white mb-3">@item.Name</h3>
+                                <h5 class="text-white mb-3">@item.AuthorNavigation.FirstName @item.AuthorNavigation.LastName</h5>
+                                <p class="text-white">@item.Title</p>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            }
+            
+
+        </div>
+        <div class="row justify-content-center">
+            <a asp-action="Project" class="btn btn-bordered mt-4">Узнать больше</a>
+        </div>
+    </div>
+</section>
+<section id="review" class="section review-area bg-overlay ptb_100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-7">
+                <!-- Section Heading -->
+                <div class="section-heading text-center">
+                    <h2 class="text-white">Отзывы</h2>
+                    <p class="text-white d-none d-sm-block mt-4">Список отзывов о колледже</p>
+                    <p class="text-white d-block d-sm-none mt-4">Список отзывов</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Client Reviews -->
+            <div class="client-reviews owl-carousel">
+                <!-- Single Review -->
+                @foreach (var item in Model.Item1)
+                {
+                    <div class="single-review p-5">
+                        <!-- Review Content -->
+                        <div class="review-content">
+                            <!-- Review Text -->
+                            <div class="review-text">
+                                <p>@item.Text</p>
+                            </div>
+                            <!-- Quotation Icon -->
+                            <div class="quot-icon">
+                                <img class="avatar-sm" src="~/assets/img/quote.png" alt="">
+                            </div>
+                        </div>
+                        <!-- Reviewer -->
+                        <div class="reviewer media mt-3">
+                            <!-- Reviewer Thumb -->
+                            <div class="reviewer-thumb">
+                                <img class="avatar-lg radius-100" src="~/assets/img/avatar/avatar-1.png" alt="">
+                            </div>
+                            <!-- Reviewer Media -->
+                            <div class="reviewer-meta media-body align-self-center ml-4">
+                                <h5 class="reviewer-name color-primary mb-2">@item.AuthorNavigation.FirstName @item.AuthorNavigation.LastName</h5>
+                                <h6 class="text-secondary fw-6">@item.Post</h6>
+                            </div>
+                        </div>
+                    </div>
+                }
+                
+                
+            </div>
+        </div>
+    </div>
+</section>
         <!-- ***** Portfolio Area End ***** -->
         <!-- ***** Price Plan Area Start ***** -->
         

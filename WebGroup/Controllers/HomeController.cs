@@ -20,7 +20,14 @@ namespace WebGroup.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            List<Feedback> lfb = db.Feedbacks.ToList();
+            List<AuthorFeedback> laf = db.AuthorFeedbacks.ToList();
+            List<StatusStudent> lss = db.StatusStudents.ToList(); 
+            List<Project> lp = db.Projects.ToList();
+            List<Member> lmo = db.Members.ToList();
+            List<TypeProject> ltp = db.TypeProjects.ToList();
+
+            return View(Tuple.Create(lfb, lss, laf, lp, lmo));
         }
         public IActionResult AboutCollege()
         {

@@ -12,6 +12,7 @@ namespace WebGroup.Models
         public string Title { get; set; }
         public int Author { get; set; }
         public int Type { get; set; }
+        public string Photo { get; set; }
 
         public virtual Member AuthorNavigation { get; set; }
         public virtual TypeProject TypeNavigation { get; set; }
