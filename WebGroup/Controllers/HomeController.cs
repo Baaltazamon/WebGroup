@@ -29,6 +29,8 @@ namespace WebGroup.Controllers
 
             return View(Tuple.Create(lfb, lss, laf, lp, lmo));
         }
+
+
         public IActionResult AboutCollege()
         {
             return View();
@@ -44,13 +46,39 @@ namespace WebGroup.Controllers
         {
             return View();
         }
+
+        public IActionResult GetRequest(string LastName, string FirstName, string Email, string Phone, string Text)
+        {
+            ContactPerson cp = new ContactPerson
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                Text = Text,
+                Email = Email,
+                Phone = Phone
+            };
+            db.ContactPeople.Add(cp);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public IActionResult NewsSingle(int id)
+        {
+            Models.News n = db.News.SingleOrDefault(c => c.Id == id);
+            Member m = db.Members.SingleOrDefault(c => c.Id == n.Author);
+            return View(Tuple.Create(n,m));
+        }
         public IActionResult Achievement()
         {
-            return View();
+            List<Models.Achievement> la = db.Achievements.ToList();
+            List<Member> lm = db.Members.ToList();
+            return View(Tuple.Create(la, lm));
         }
         public IActionResult Project()
         {
-            return View();
+            List<Project> lp = db.Projects.ToList();
+            List<TypeProject> ltp = db.TypeProjects.ToList();
+            List<Member> lm = db.Members.ToList();
+            return View(Tuple.Create(lp, ltp, lm));
         }
         public IActionResult News()
         {

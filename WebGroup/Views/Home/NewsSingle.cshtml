@@ -1,0 +1,88 @@
+﻿@model Tuple<News, Member>
+@{
+    ViewData["Title"] = "NewsSingle";
+}
+
+<section class="section breadcrumb-area overlay-dark d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+</section>
+<!-- ***** Breadcrumb Area End ***** -->
+<!-- ***** About Area Start ***** -->
+
+<section class="section ptb_100">
+    <div class="container">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-12 col-lg-12">
+                <!-- Goal Content -->
+                <div class="goal-content section-heading text-center text-lg-left pr-md-4 mb-0">
+                    <img src="~/assets/img/news/@Model.Item1.Photo"/>
+                    <h1 class="text-center">@Model.Item1.Title</h1>
+                    <br/>
+                    <h6 class="text-right">@Model.Item2.LastName @Model.Item2.FirstName</h6>
+                    <br/>
+                    <h5 class="text-left">@Model.Item1.DatePublication.ToShortDateString()</h5>
+                    <hr/>
+                    <p class="text-justify">@Model.Item1.Text</p>
+                    <hr/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- ***** Team Area End ***** -->
+<!--====== Modal Search Area Start ======-->
+<div id="search" class="modal fade p-0">
+    <div class="modal-dialog dialog-animated">
+        <div class="modal-content h-100">
+            <div class="modal-header" data-dismiss="modal">
+                Search <i class="far fa-times-circle icon-close"></i>
+            </div>
+            <div class="modal-body">
+                <form class="row">
+                    <div class="col-12 align-self-center">
+                        <div class="row">
+                            <div class="col-12 pb-3">
+                                <h2 class="search-title mb-3">What are you looking for?</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent diam lacus, dapibus sed imperdiet consectetur.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 input-group">
+                                <input type="text" class="form-control" placeholder="Enter your keywords">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 input-group align-self-center">
+                                <button class="btn btn-bordered mt-3">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--====== Modal Search Area End ======-->
+<!--====== Modal Responsive Menu Area Start ======-->
+<div id="menu" class="modal fade p-0">
+    <div class="modal-dialog dialog-animated">
+        <div class="modal-content h-100">
+            <div class="modal-header" data-dismiss="modal">
+                Menu <i class="far fa-times-circle icon-close"></i>
+            </div>
+            <div class="menu modal-body">
+                <div class="row w-100">
+                    <div class="items p-0 col-12 text-center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
