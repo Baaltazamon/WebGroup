@@ -17,7 +17,7 @@ namespace WebGroup.Models
         public string Text { get; set; }
         public DateTime Date { get; set; }
         public int Author { get; set; }
-
+        public string Photo { get; set; }
         public virtual Member AuthorNavigation { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }

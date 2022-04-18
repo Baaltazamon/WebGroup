@@ -47,6 +47,7 @@ namespace WebGroup.Controllers
             return View();
         }
 
+
         public IActionResult GetRequest(string LastName, string FirstName, string Email, string Phone, string Text)
         {
             ContactPerson cp = new ContactPerson
@@ -87,9 +88,77 @@ namespace WebGroup.Controllers
 
             return View(Tuple.Create(lnews, lmem));
         }
+
+        
+        public IActionResult BlogAll(int page)
+        {
+            
+            List<Blog> lbc = db.Blogs.ToList();
+            int g = 0;
+            int h = 6;
+            if (lbc.Count % h == 0)
+                g = lbc.Count / h;
+            else
+            {
+                g = lbc.Count / h + 1;
+            }
+            if (page > g)
+                return RedirectToAction("Error");
+            List<Blog> lb = new List<Blog>();
+            for (int i = page*h; i < page * h+h; i++)
+            {
+                if (i <= lbc.Count - 1)
+                {
+                    lb.Add(lbc[i]);
+                }
+            }
+            List<Member> lm = db.Members.ToList();
+            List<int> pages;
+            if (page == 0)
+            {
+                pages = new List<int>
+                {
+                    1,2,g
+                };
+            }
+            else
+            {
+                if (page + 2 <= g)
+                {
+                    pages = new List<int>
+                    {
+                        page+1, page, page+2
+                    };
+                }
+                else
+                {
+                    pages = new List<int>
+                    {
+                        page+1, page, 1
+                    };
+                }
+                
+            }
+            return View(Tuple.Create(lb, lm, pages));
+        }
         public IActionResult About()
         {
-            return View();
+            List<int> f = new List<int>();
+            DateTime date1 = DateTime.Parse("01.09.2019");
+            DateTime date2 = DateTime.Parse("05.07.2022");
+            
+            int days1 = (date2 - DateTime.Now).Days;
+            int days2 = (DateTime.Now - date1).Days;
+
+            List<Project> lp = db.Projects.ToList();
+
+            f = new List<int>{days1, days2, lp.Count};
+            List<Member> lm = db.Members.ToList();
+            Random rnd = new Random();
+            lm = lm.GetRange(rnd.Next(lm.Count - 7), 6);
+            
+            List<StatusStudent> lss = db.StatusStudents.ToList();
+            return View(Tuple.Create(f, lm, lss));
         }
         public IActionResult Privacy()
         {

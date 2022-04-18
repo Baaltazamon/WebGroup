@@ -44,7 +44,7 @@
                                    @item.AuthorNavigation.LastName @item.AuthorNavigation.FirstName
                                </p>
                                    <p class="text-white">
-                                   @item.Text.Substring(0,100)
+                                       @((item.Text.Length > 150)?item.Text.Substring(0, 100)+"...":item.Text)
                                        </p>
                                </span>
                            </a>
@@ -53,9 +53,7 @@
                }
 
             </div>
-            <div class="row justify-content-center">
-                <a href="#" class="btn btn-bordered mt-5">View More</a>
-            </div>
+            
         </section>
         <!-- ***** Portfolio Area End ***** -->
         <!-- ***** Review Area Start ***** -->

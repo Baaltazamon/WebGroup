@@ -106,12 +106,12 @@
                                 <li class="nav-item"><a asp-action="Project" class="nav-link">Наши проекты</a></li>
                                 <li class="nav-item"><a asp-action="Team" class="nav-link">Наша группа</a></li>
                                 <li class="nav-item"><a asp-action="Achievement" class="nav-link">Достижения</a></li>
-                                <li class="nav-item"><a class="nav-link">Контакты</a></li>
-                                <li class="nav-item"><a class="nav-link">404</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-action="Contact">Контакты</a></li>
+                                
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Блог<i class="fas fa-angle-down ml-1"></i></a>
+                            <a class="nav-link" asp-action="BlogAll" asp-route-page="0">Блог</a>
                         </li>
                     </ul>
                     <!-- Navbar Icons -->
@@ -211,7 +211,6 @@
                                     </div>
                                 </div>
                             </form>
-                            <p class="form-message"></p>
                         </div>
                     </div>
                 </div>
@@ -299,53 +298,7 @@
         </footer>
         <!--====== Footer Area End ======-->
         <!--====== Modal Search Area Start ======-->
-        <div id="search" class="modal fade p-0">
-            <div class="modal-dialog dialog-animated">
-                <div class="modal-content h-100">
-                    <div class="modal-header" data-dismiss="modal">
-                        Search <i class="far fa-times-circle icon-close"></i>
-                    </div>
-                    <div class="modal-body">
-                        <form class="row">
-                            <div class="col-12 align-self-center">
-                                <div class="row">
-                                    <div class="col-12 pb-3">
-                                        <h2 class="search-title mb-3">What are you looking for?</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent diam lacus, dapibus sed imperdiet consectetur.</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 input-group">
-                                        <input type="text" class="form-control" placeholder="Enter your keywords">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 input-group align-self-center">
-                                        <button class="btn btn-bordered mt-3">Search</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--====== Modal Search Area End ======-->
-        <!--====== Modal Responsive Menu Area Start ======-->
-        <div id="menu" class="modal fade p-0">
-            <div class="modal-dialog dialog-animated">
-                <div class="modal-content h-100">
-                    <div class="modal-header" data-dismiss="modal">
-                        Menu <i class="far fa-times-circle icon-close"></i>
-                    </div>
-                    <div class="menu modal-body">
-                        <div class="row w-100">
-                            <div class="items p-0 col-12 text-center"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
         <!-- ***** All jQuery Plugins ***** -->
         <!-- jQuery(necessary for all JavaScript plugins) -->

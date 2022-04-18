@@ -1,0 +1,135 @@
+﻿@model Tuple<List<Blog>, List<Member>, List<int>>
+@{
+    ViewData["Title"] = "BlogAll";
+}
+
+ 
+    <!-- ***** Header End ***** -->
+    <!-- ***** Breadcrumb Area Start ***** -->
+    <section class="section breadcrumb-area overlay-dark d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Breamcrumb Content -->
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Breadcrumb Area End ***** -->
+    <!-- ***** Blog Area Start ***** -->
+    <section id="blog" class="section blog-area ptb_100">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model.Item1)
+                {
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <!-- Single Blog -->
+                        <div class="single-blog res-margin">
+                            <!-- Blog Thumb -->
+                            <div class="blog-thumb">
+                                <a href="#"><img src="~/assets/img/blog/@item.Photo" alt=""></a>
+                            </div>
+                            <!-- Blog Content -->
+                            <div class="blog-content">
+                                <!-- Meta Info -->
+                                <ul class="meta-info d-flex justify-content-between">
+                                    <li>By <a href="#">@item.AuthorNavigation.LastName @item.AuthorNavigation.FirstName</a></li>
+                                    <li><a href="#">@item.Date.ToShortDateString()</a></li>
+                                </ul>
+                                <!-- Blog Title -->
+                                <h3 class="blog-title my-3"><a href="#">@item.Title</a></h3>
+                                <p class="text-justify"> @((item.Text.Length > 150)?item.Text.Substring(0, 150)+"...":item.Text)</p>
+                                <a href="#" class="blog-btn mt-3">Читать</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <!-- Pagination -->
+                    <ul class="pagination justify-content-center">
+                        <li class="disabled px-1">
+                            <a asp-action="BlogAll" asp-route-page="@(Model.Item3[0]-1)" aria-label="Previous">
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </li>
+                        @if (Model.Item3[0] == 1)
+                        {
+                        
+                        <li class="active px-1"><a asp-action="BlogAll" asp-route-page="@(Model.Item3[0]-1)">@Model.Item3[0]</a></li>
+                        <li class=" px-1"><a asp-action="BlogAll" asp-route-page="@(Model.Item3[1]-1)">@Model.Item3[1]</a></li>
+                        <li class="px-1"><a asp-action="BlogAll" asp-route-page="@(Model.Item3[2]-1)">@Model.Item3[2]</a></li>
+                        }
+                        else
+                        {
+                            <li class=" px-1"><a asp-action="BlogAll" asp-route-page="@(Model.Item3[1]-1)">@Model.Item3[1]</a></li>
+                            <li class="active px-1"><a asp-action="BlogAll" asp-route-page="@(Model.Item3[0]-1)">@Model.Item3[0]</a></li>
+                            <li class="px-1"><a asp-action="BlogAll" asp-route-page="@(Model.Item3[2]-1)">@Model.Item3[2]</a></li>
+                        }
+                        <li>
+                            <a asp-action="BlogAll" asp-route-page="@(Model.Item3[2]-1)" aria-label="Next">
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Blog Area End ***** -->
+    <!--====== Footer Area Start ======-->
+   
+    <!--====== Footer Area End ======-->
+    <!--====== Modal Search Area Start ======-->
+    <div id="search" class="modal fade p-0">
+        <div class="modal-dialog dialog-animated">
+            <div class="modal-content h-100">
+                <div class="modal-header" data-dismiss="modal">
+                    Search <i class="far fa-times-circle icon-close"></i>
+                </div>
+                <div class="modal-body">
+                    <form class="row">
+                        <div class="col-12 align-self-center">
+                            <div class="row">
+                                <div class="col-12 pb-3">
+                                    <h2 class="search-title mb-3">What are you looking for?</h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent diam lacus, dapibus sed imperdiet consectetur.</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 input-group">
+                                    <input type="text" class="form-control" placeholder="Enter your keywords">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 input-group align-self-center">
+                                    <button class="btn btn-bordered mt-3">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== Modal Search Area End ======-->
+    <!--====== Modal Responsive Menu Area Start ======-->
+    <div id="menu" class="modal fade p-0">
+        <div class="modal-dialog dialog-animated">
+            <div class="modal-content h-100">
+                <div class="modal-header" data-dismiss="modal">
+                    Menu <i class="far fa-times-circle icon-close"></i>
+                </div>
+                <div class="menu modal-body">
+                    <div class="row w-100">
+                        <div class="items p-0 col-12 text-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
