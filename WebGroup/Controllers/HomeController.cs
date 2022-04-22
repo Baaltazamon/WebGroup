@@ -128,14 +128,44 @@ namespace WebGroup.Controllers
             return RedirectToAction("BlockSingle", new { id = idBlog });
         }
 
-      
+        public IActionResult FeedBacks()
+        {
+            List<Feedback> lfb = db.Feedbacks.ToList();
+            List<AuthorFeedback> laf = db.AuthorFeedbacks.ToList();
+            return View(Tuple.Create(lfb, laf));
+        }
+        [HttpPost]
+        public IActionResult SendFeedback(string LastName, string FirstName, string Post, string Text)
+        {
+            AuthorFeedback au =
+                db.AuthorFeedbacks.SingleOrDefault(c => c.FirstName == FirstName && c.LastName == LastName);
+            if (au is null)
+            {
+                au = new AuthorFeedback
+                {
+                    LastName = LastName,
+                    FirstName = FirstName
+                };
+                db.AuthorFeedbacks.Add(au);
+                db.SaveChanges();
+            }
+            Feedback fb = new Feedback
+            {
+                Author = au.Id,
+                Post = Post,
+                Text = Text
+            };
+            db.Feedbacks.Add(fb);
+            db.SaveChanges();
+            return RedirectToAction("FeedBacks");
+        }
         public IActionResult BlockSingle(int id)
         {
             
-            if (id == 0)
-                id = blockid;
-            Blog bl = db.Blogs.SingleOrDefault(c => c.Id == id);
             
+            Blog bl = db.Blogs.SingleOrDefault(c => c.Id == id);
+            if (bl is null)
+                return RedirectToAction("Error");
             Member mem = db.Members.SingleOrDefault(c => c.Id == bl.Author);
             List<Comment> lcom = db.Comments.Where(c => c.Publication == bl.Id && c.OwnerComment == null).ToList();
             List<Commentor> lcoment = new List<Commentor>();
@@ -163,7 +193,7 @@ namespace WebGroup.Controllers
                 com.Children = lcc;
                 lcoment.Add(com);
             }
-            blockid = id;
+            
             List<Blog> lblock = db.Blogs.ToList();
             List<Comment> lcomall = db.Comments.ToList();
             return View(Tuple.Create(bl, mem, lcoment, lblock, lcomall));

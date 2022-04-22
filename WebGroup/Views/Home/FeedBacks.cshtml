@@ -1,0 +1,107 @@
+﻿@model Tuple<List<Feedback>, List<AuthorFeedback>>
+@{
+    ViewData["Title"] = "FeedBacks";
+}
+<section class="section breadcrumb-area overlay-dark d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+</section>
+<section id="review" class="section review-area bg-overlay ptb_100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-7">
+                <!-- Section Heading -->
+                <div class="section-heading text-center">
+                    <h2 class="text-white">Отзывы</h2>
+                    <p class="text-white d-none d-sm-block mt-4">Список отзывов о колледже</p>
+                    <p class="text-white d-block d-sm-none mt-4">Список отзывов</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Client Reviews -->
+            <div class="client-reviews owl-carousel">
+                <!-- Single Review -->
+                @foreach (var item in Model.Item1)
+                {
+                    <div class="single-review p-5">
+                        <!-- Review Content -->
+                        <div class="review-content">
+                            <!-- Review Text -->
+                            <div class="review-text">
+                                <p>@item.Text</p>
+                            </div>
+                            <!-- Quotation Icon -->
+                            <div class="quot-icon">
+                                <img class="avatar-sm" src="~/assets/img/quote.png" alt="">
+                            </div>
+                        </div>
+                        <!-- Reviewer -->
+                        <div class="reviewer media mt-3">
+                            <!-- Reviewer Thumb -->
+                            <div class="reviewer-thumb">
+                                <img class="avatar-lg radius-100" src="~/assets/img/avatar/avatar-1.png" alt="">
+                            </div>
+                            <!-- Reviewer Media -->
+                            <div class="reviewer-meta media-body align-self-center ml-4">
+                                <h5 class="reviewer-name color-primary mb-2">@item.AuthorNavigation.FirstName @item.AuthorNavigation.LastName</h5>
+                                <h6 class="text-secondary fw-6">@item.Post</h6>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+    
+</section>
+<section id="feedback" class="section blog-area ptb_100">
+    <div class="container">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-12">
+                <div class="blog-contact">
+                    <!-- Contact Title -->
+                    <h3 class="comments-title text-uppercase text-left text-lg-right mb-3">Опубликовать свой отзыв</h3>
+                    <!-- Comment Box -->
+                    <div class="contact-box comment-box">
+                        <form method="POST" asp-action="SendFeedback">
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="FirstName" placeholder="Имя" required="required">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="LastName" placeholder="Фамилия" required="required">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="Post" placeholder="Кем были в КСТ" required="required">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="Text" placeholder="Комментарий" required="required"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-bordered" type="submit">Отправить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
