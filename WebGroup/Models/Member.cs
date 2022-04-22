@@ -11,7 +11,6 @@ namespace WebGroup.Models
         {
             Achievements = new HashSet<Achievement>();
             Blogs = new HashSet<Blog>();
-            Comments = new HashSet<Comment>();
             News = new HashSet<News>();
             Projects = new HashSet<Project>();
             RequestProcesseds = new HashSet<RequestProcessed>();
@@ -31,7 +30,6 @@ namespace WebGroup.Models
         public virtual StatusStudent StatusNavigation { get; set; }
         public virtual ICollection<Achievement> Achievements { get; set; }
         public virtual ICollection<Blog> Blogs { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<News> News { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
         public virtual ICollection<RequestProcessed> RequestProcesseds { get; set; }

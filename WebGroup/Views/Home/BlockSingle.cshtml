@@ -1,0 +1,242 @@
+﻿@model Tuple<Blog, Member, List<Commentor>, List<Blog>, List<Comment>>
+@{
+    ViewData["Title"] = "BlockSingle";
+}
+
+<!-- ***** Breadcrumb Area Start ***** -->
+<section class="section breadcrumb-area overlay-dark d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Breamcrumb Content -->
+                
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Breadcrumb Area End ***** -->
+<!-- ***** Blog Area Start ***** -->
+<section id="blog" class="section blog-area ptb_100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-9">
+                <!-- Single Blog Details -->
+                <article class="single-blog-details">
+                    <!-- Blog Thumb -->
+                    <div class="blog-thumb">
+                        <a href="#"><img src="~/assets/img/blog/@Model.Item1.Photo" alt=""></a>
+                    </div>
+                    <!-- Blog Content -->
+                    <div class="blog-content digimax-blog p-3">
+                        <!-- Meta Info -->
+                        <div class="meta-info d-flex flex-wrap align-items-center py-2">
+                            <ul>
+                                <li class="d-inline-block p-2">By <a href="#">@Model.Item1.AuthorNavigation.FirstName @Model.Item1.AuthorNavigation.LastName</a></li>
+                                <li class="d-none d-md-inline-block p-2"><a href="#">@Model.Item1.Date.ToShortDateString()</a></li>
+                                <li class="d-inline-block p-2"><a href="#">@Model.Item1.Comments.Count Комментариев</a></li>
+                            </ul>
+                            <!-- Blog Share -->
+                            <div class="blog-share ml-auto d-none d-sm-block">
+                                <!-- Social Icons -->
+                                <div class="social-icons d-flex justify-content-center">
+                                    <a class="bg-white facebook" href="#">
+                                        <i class="fab fa-facebook-f"></i>
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a class="bg-white twitter" href="#">
+                                        <i class="fab fa-twitter"></i>
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a class="bg-white google-plus" href="#">
+                                        <i class="fab fa-google-plus-g"></i>
+                                        <i class="fab fa-google-plus-g"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Blog Details -->
+                        <div class="blog-details">
+                            <h3 class="blog-title py-3"><a href="#">@Model.Item1.Title</a></h3>
+                            <p class="d-none d-sm-block text-justify">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item1.Text</p>
+                            </div>
+                    </div>
+                    <!-- Blog Comments -->
+                    <div class="blog-comments p-3">
+                        <!-- Admin -->
+                        @foreach (var item in Model.Item3)
+                        {
+                            <div class="admin media py-4">
+                                <!-- Admin Thumb -->
+                                <div class="admin-thumb avatar-lg">
+                                    <img class="rounded-circle" src="~/assets/img/avatar/avatar-1.png" alt="">
+                                </div>
+                                <!-- Admin Content -->
+                                <div class="admin-content media-body pl-3 pl-sm-4">
+                                    <h4 class="admin-name d-flex mb-2"><a href="#">@item.Author</a>
+                                        <a href="javascript:void(0)" onclick="
+                                    document.getElementById('inp').hidden = false;
+                                    document.getElementById('inp').value = '@item.Author';
+                                        document.getElementById('inp2').value = '@item.Id';
+                                    document.getElementById('del').hidden = false;
+                                    " class="ml-auto">Ответить</a></h4><h6> @item.Date.ToShortDateString()</h6>
+                                    <p>@item.Text</p>
+                                </div>
+                            </div>
+                            <!-- Comments -->
+                            <div class="comments mt-4 mb-3">
+                                <h3 class="comments-title text-uppercase text-left text-lg-right mb-3">Ответы</h3>
+                                @foreach (var item2 in item.Children)
+                                {
+                                    <div class="single-comments media p-4">
+                                        <!-- Comments Thumb -->
+                                        <div class="comments-thumb avatar-lg">
+                                            <img class="rounded-circle" src="~/assets/img/avatar/avatar-1.png" alt="">
+                                        </div>
+                                        <!-- Comments Content -->
+                                        <div class="comments-content media-body pl-3">
+                                            <h5 class="d-flex mb-2">
+                                                <a>@item2.Author</a>
+                                                
+                                            </h5>
+                                            <h6 >@item2.Comment.Date.ToShortDateString()</h6>
+                                                
+                                            
+                                            <p class="d-none d-lg-block">@item2.Comment.Text</p>
+
+                                        </div>
+                                    </div>
+                                }
+                                
+
+                            </div>
+                        }
+
+                    </div>
+                    <!-- Blog Contact -->
+                    <div class="blog-contact p-3">
+                        <!-- Contact Title -->
+                        <h3 class="comments-title text-uppercase text-left text-lg-right mb-3">Опубликовать свой комментарий</h3>
+                        <!-- Comment Box -->
+                        <div class="contact-box comment-box">
+                            <form method="POST" asp-action="SendComment" asp-route-idBlog="@Model.Item1.Id">
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="FirstName" placeholder="Имя" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"  name="LastName" placeholder="Фамилия" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" hidden readonly="readonly"  class="form-control" id="inp" required="required">
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <div class="form-group">
+                                           
+                                            <input type="hidden" name="id" class="form-control" id="inp2" required="required">
+                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <div class="form-group">
+                                           
+                                            <a id="del" hidden href="javascript:void(0)" onclick="
+                                                        document.getElementById('inp').value = '';
+                                                        document.getElementById('inp2').value = '';
+                                                        document.getElementById('del').hidden = true;
+                                                        document.getElementById('inp').hidden = true;">Удалить</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="Text" placeholder="Комментарий" required="required"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-bordered" type="submit">Отправить</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col-12 col-lg-3">
+                <aside class="sidebar mt-5 mt-lg-0">
+                    <!-- Single Widget -->
+                    
+                    <!-- Single Widget -->
+                    <div class="single-widget">
+                        <!-- Category Widget -->
+                        <div class="widget catagory-widget">
+                            <h5 class="text-uppercase d-block py-3">Самые обсуждаемые</h5>
+                            <!-- Category Widget Content -->
+                            <div class="widget-content">
+                                <!-- Category Widget Items -->
+                                <ul class="widget-items">
+                                    @foreach (var item in Model.Item4.Where(c => c.Comments.Count > 0).OrderBy(c=> c.Comments.Count).Reverse().ToList().GetRange(0,3))
+                                    {
+                                        <li><a asp-action="BlockSingle" asp-route-id="@item.Id" class="d-flex py-3"><span>@item.Title</span><span class="ml-auto">(@item.Comments.Count)</span></a></li>
+                                    }
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Widget -->
+                    <div class="single-widget">
+                        <!-- Post Widget -->
+                        <div class="widget post-widget">
+                            <h5 class="text-uppercase d-block py-3">Еще этого автора</h5>
+                            <!-- Post Widget Content -->
+                            <div class="widget-content">
+                                <!-- Post Widget Items -->
+                                <ul class="widget-items">
+                                    @if (Model.Item4.Count(c => c.Author == Model.Item1.Author && c.Id != Model.Item1.Id) == 0)
+                                    {
+                                        <li>
+                                            <h6>У этого автора нет других статей</h6>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        
+                                        @foreach(var item in Model.Item4.Where(c=> c.Author == Model.Item1.Author && c.Id != Model.Item1.Id))
+                                        {
+                                            
+                                            
+                                            <li>
+                                                <a asp-action="BlockSingle" asp-route-id="@item.Id" class="single-post media py-3">
+                                                    <!-- Post Thumb -->
+                                                    <div class="post-thumb avatar-lg h-100 d-flex align-self-center">
+                                                        <img src="~/assets/img/blog/@item.Photo" alt="">
+                                                    </div>
+                                                    <div class="post-content media-body ml-3 py-2">
+                                                        <p class="post-date mb-2">@item.Date.ToShortDateString()</p>
+                                                        <h6>@item.Title</h6>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        } 
+                                        
+                                    }
+                                    
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Widget -->
+                   
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Blog Area End ***** -->

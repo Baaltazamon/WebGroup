@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebGroup.Models;
 
 namespace WebGroup.Controllers
@@ -12,7 +14,9 @@ namespace WebGroup.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+
         Models.GolovinContext db = new GolovinContext();
+        private int blockid = 0;
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -47,7 +51,7 @@ namespace WebGroup.Controllers
             return View();
         }
 
-
+        [HttpPost]
         public IActionResult GetRequest(string LastName, string FirstName, string Email, string Phone, string Text)
         {
             ContactPerson cp = new ContactPerson
@@ -66,6 +70,7 @@ namespace WebGroup.Controllers
         {
             Models.News n = db.News.SingleOrDefault(c => c.Id == id);
             Member m = db.Members.SingleOrDefault(c => c.Id == n.Author);
+
             return View(Tuple.Create(n,m));
         }
         public IActionResult Achievement()
@@ -88,8 +93,81 @@ namespace WebGroup.Controllers
 
             return View(Tuple.Create(lnews, lmem));
         }
+        [HttpPost]
+        public IActionResult SendComment(int? id, int idBlog, string LastName, string FirstName, string Text)
+        {
+            AuthorFeedback au =
+                db.AuthorFeedbacks.SingleOrDefault(c => c.FirstName == FirstName && c.LastName == LastName);
+            if (au is null)
+            {
+                au = new AuthorFeedback
+                {
+                    LastName = LastName,
+                    FirstName = FirstName
+                };
+                db.AuthorFeedbacks.Add(au);
+                db.SaveChanges();
+            }
 
-        
+            Comment com = new Comment
+            {
+                Author = au.Id,
+                Date = DateTime.Now,
+                Text = Text,
+                Publication = idBlog
+            };
+            if (id != null)
+            {
+                com.OwnerComment = id;
+            }
+
+            
+            db.Comments.Add(com);
+            db.SaveChanges();
+            
+            return RedirectToAction("BlockSingle", new { id = idBlog });
+        }
+
+      
+        public IActionResult BlockSingle(int id)
+        {
+            
+            if (id == 0)
+                id = blockid;
+            Blog bl = db.Blogs.SingleOrDefault(c => c.Id == id);
+            
+            Member mem = db.Members.SingleOrDefault(c => c.Id == bl.Author);
+            List<Comment> lcom = db.Comments.Where(c => c.Publication == bl.Id && c.OwnerComment == null).ToList();
+            List<Commentor> lcoment = new List<Commentor>();
+            foreach (var item in lcom)
+            {
+                Commentor com = new Commentor();
+                AuthorFeedback au = db.AuthorFeedbacks.SingleOrDefault(c => c.Id == item.Author);
+                com.Author = au.FirstName + " " + au.LastName;
+                com.Text = item.Text;
+                com.Date = item.Date;
+                com.Id = item.Id;
+                List<Comment> lc = db.Comments.Where(c => c.OwnerComment == item.Id).ToList();
+                List<ChildCommentor> lcc = new List<ChildCommentor>();
+                foreach (var VARIABLE in lc)
+                {
+                    AuthorFeedback au2 = db.AuthorFeedbacks.SingleOrDefault(c => c.Id == VARIABLE.Author);
+                    ChildCommentor cc = new ChildCommentor
+                    {
+                        Comment = VARIABLE,
+                        Author = au2.FirstName + " " + au2.LastName
+                    };
+                    lcc.Add(cc);
+                }
+
+                com.Children = lcc;
+                lcoment.Add(com);
+            }
+            blockid = id;
+            List<Blog> lblock = db.Blogs.ToList();
+            List<Comment> lcomall = db.Comments.ToList();
+            return View(Tuple.Create(bl, mem, lcoment, lblock, lcomall));
+        }
         public IActionResult BlogAll(int page)
         {
             

@@ -77,7 +77,6 @@ namespace WebGroup.Models
             {
                 entity.ToTable("Blog");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
@@ -98,7 +97,6 @@ namespace WebGroup.Models
             {
                 entity.ToTable("Comment");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
@@ -110,11 +108,7 @@ namespace WebGroup.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Comment_AuthorFeedback");
 
-                entity.HasOne(d => d.Author1)
-                    .WithMany(p => p.Comments)
-                    .HasForeignKey(d => d.Author)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Comment_Member");
+                
 
                 entity.HasOne(d => d.OwnerCommentNavigation)
                     .WithMany(p => p.InverseOwnerCommentNavigation)
@@ -127,11 +121,7 @@ namespace WebGroup.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Comment_Blog");
 
-                entity.HasOne(d => d.Publication1)
-                    .WithMany(p => p.Comments)
-                    .HasForeignKey(d => d.Publication)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Comment_News");
+                
             });
 
             modelBuilder.Entity<ContactPerson>(entity =>

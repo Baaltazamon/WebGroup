@@ -7,10 +7,7 @@ namespace WebGroup.Models
 {
     public partial class News
     {
-        public News()
-        {
-            Comments = new HashSet<Comment>();
-        }
+        
 
         public int Id { get; set; }
         public string Title { get; set; }
@@ -20,6 +17,5 @@ namespace WebGroup.Models
         public DateTime DatePublication { get; set; }
 
         public virtual Member AuthorNavigation { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

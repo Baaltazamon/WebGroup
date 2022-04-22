@@ -21,7 +21,7 @@
     <section id="blog" class="section blog-area ptb_100">
         <div class="container">
             <div class="row">
-                @foreach (var item in Model.Item1)
+                @foreach (var item in Model.Item1.OrderBy(c=> c.Date).Reverse())
                 {
                     <div class="col-12 col-md-6 col-lg-4">
                         <!-- Single Blog -->
@@ -38,9 +38,9 @@
                                     <li><a href="#">@item.Date.ToShortDateString()</a></li>
                                 </ul>
                                 <!-- Blog Title -->
-                                <h3 class="blog-title my-3"><a href="#">@item.Title</a></h3>
+                                <h3 class="blog-title my-3"><a >@item.Title</a></h3>
                                 <p class="text-justify"> @((item.Text.Length > 150)?item.Text.Substring(0, 150)+"...":item.Text)</p>
-                                <a href="#" class="blog-btn mt-3">Читать</a>
+                                <a asp-controller="Home" asp-action="BlockSingle" asp-route-id="@item.Id" class="blog-btn mt-3">Читать</a>
                             </div>
                         </div>
                     </div>

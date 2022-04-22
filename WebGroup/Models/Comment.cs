@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WebGroup.Models
 {
-    public partial class Comment
+    public sealed partial class Comment
     {
         public Comment()
         {
@@ -19,11 +19,9 @@ namespace WebGroup.Models
         public int Publication { get; set; }
         public int? OwnerComment { get; set; }
 
-        public virtual Member Author1 { get; set; }
-        public virtual AuthorFeedback AuthorNavigation { get; set; }
-        public virtual Comment OwnerCommentNavigation { get; set; }
-        public virtual News Publication1 { get; set; }
-        public virtual Blog PublicationNavigation { get; set; }
-        public virtual ICollection<Comment> InverseOwnerCommentNavigation { get; set; }
+        public AuthorFeedback AuthorNavigation { get; set; }
+        public Comment OwnerCommentNavigation { get; set; }
+        public Blog PublicationNavigation { get; set; }
+        public ICollection<Comment> InverseOwnerCommentNavigation { get; set; }
     }
 }
