@@ -57,8 +57,12 @@
                         <!-- Blog Details -->
                         <div class="blog-details">
                             <h3 class="blog-title py-3"><a href="#">@Model.Item1.Title</a></h3>
-                            <p class="d-none d-sm-block text-justify">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item1.Text</p>
-                            </div>
+                            @foreach (var item in Model.Item1.Text.Split("\n"))
+                            {
+                                <p class="d-none d-sm-block text-justify">&nbsp;&nbsp;&nbsp;&nbsp;@item</p>
+                            }
+
+                        </div>
                     </div>
                     <!-- Blog Comments -->
                     <div class="blog-comments p-3">

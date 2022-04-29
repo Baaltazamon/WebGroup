@@ -149,6 +149,12 @@ namespace WebGroup.Controllers
                 db.AuthorFeedbacks.Add(au);
                 db.SaveChanges();
             }
+
+            
+            foreach (var item in Censor.CensorsList)
+            {
+                Text = Text.Replace(item, "***");
+            }
             Feedback fb = new Feedback
             {
                 Author = au.Id,
